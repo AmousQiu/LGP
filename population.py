@@ -88,6 +88,14 @@ class Population:
         ranked_programs = sorted(self.population, key=lambda p: p.fitness, reverse=True)   
         save_num = int(Configuration.population_size *  Configuration.keep_rate)
         return ranked_programs[:save_num]
+    
+    def tournamanet_selection(self, tournament_size=3):
+        selected = []
+        for _ in range(Configuration.population_size*Configuration.keep_rate):
+            tournament = random.sample(self.population, tournament_size)
+            winner = max(tournament, key=lambda p: p.fitness)
+            selected.append(winner.duplicate())
+        return selected
         
     def generation(self, X, y, gen, crossover=True, probability_mutate=True):
         # Evaluation and parent selection (unchanged)
@@ -104,8 +112,8 @@ class Population:
         length_arr = [len(p.instruction_sets) for p in ranked_programs]
         
         # Parent selection (unchanged)
-        #parent_pool = self.normal_selection()
-        parent_pool = self.length_bidding_selection()
+        parent_pool = self.normal_selection()
+        #parent_pool = self.length_bidding_selection()
         if len(parent_pool) > save_num:
             parent_pool = parent_pool[:save_num]
             
