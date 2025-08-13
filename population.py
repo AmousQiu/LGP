@@ -89,9 +89,9 @@ class Population:
         save_num = int(Configuration.population_size *  Configuration.keep_rate)
         return ranked_programs[:save_num]
     
-    def tournamanet_selection(self, tournament_size=3):
+    def tournament_selection(self, tournament_size=3):
         selected = []
-        for _ in range(Configuration.population_size*Configuration.keep_rate):
+        for _ in range(int(Configuration.population_size * Configuration.keep_rate)):
             tournament = random.sample(self.population, tournament_size)
             winner = max(tournament, key=lambda p: p.fitness)
             selected.append(winner.duplicate())
