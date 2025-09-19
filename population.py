@@ -113,6 +113,7 @@ class Population:
         
         # Parent selection (unchanged)
         parent_pool = self.normal_selection()
+        #parent_pool = self.tournament_selection()
         #parent_pool = self.length_bidding_selection()
         if len(parent_pool) > save_num:
             parent_pool = parent_pool[:save_num]
