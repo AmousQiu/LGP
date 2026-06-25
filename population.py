@@ -62,9 +62,10 @@ class Population:
 
 
     def length_bidding_selection(self):
-        for p in self.population:
-            if len(p.instruction_sets)<Configuration.min_instruction_lines:
-                self.population.remove(p)
+        self.population = [
+            p for p in self.population
+            if len(p.instruction_sets) >= Configuration.min_instruction_lines
+        ]
                 
         ranked_programs = sorted(self.population, 
                             key=lambda p: (p.fitness,-len(p.instruction_sets)), 
