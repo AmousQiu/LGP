@@ -49,10 +49,11 @@ class Program:
             elif action == 2:
                 self.instruction_sets.append(Instruction())
         else:
+            to_delete = []
             for idx, instruction in enumerate(self.instruction_sets):
                 pos_weight = ((len(self.instruction_sets) - idx) / len(self.instruction_sets))
                 mutation_prob = base_rate * pos_weight
-                
+
                 if random.random() < mutation_prob:
                     # Aggressive mutation options
                     action = random.choices(
@@ -60,17 +61,19 @@ class Program:
                         weights=[0.6, 0.2, 0.2],  # 60% modify, 20% insert, etc.
                         k=1
                     )[0]
-                    
+
                     if action == 0:  # Modify instruction
                         instruction.mutate_instruction(1.0)
-                        
+
                     elif action == 1:  # Insert new instruction
                         if len(self.instruction_sets) < Configuration.max_instruction_lines:
                             self.instruction_sets.insert(idx, Instruction())
-                            
+
                     elif action == 2:  # Delete instruction
                         if len(self.instruction_sets) > Configuration.min_instruction_lines:
-                            del self.instruction_sets[idx]
+                            to_delete.append(idx)
+            for idx in reversed(to_delete):
+                del self.instruction_sets[idx]
 
     
     def evaluation_matrix(self,X,y):
