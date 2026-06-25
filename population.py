@@ -31,7 +31,7 @@ class Population:
         # Create an empty child program
         child1 = Program()
         child2 = Program()
-        child1.instruction_sets = parent1.instruction_sets[:crossover_index1] + parent2.instruction_sets[crossover_index1:crossover_index2] +parent1.instruction_sets[crossover_index1:]
+        child1.instruction_sets = parent1.instruction_sets[:crossover_index1] + parent2.instruction_sets[crossover_index1:crossover_index2] + parent1.instruction_sets[crossover_index2:]
         child2.instruction_sets = parent2.instruction_sets[:crossover_index2] + parent1.instruction_sets[crossover_index1:crossover_index2] +parent2.instruction_sets[crossover_index2:]
         # Ensure the child's length doesn't exceed the maximum program length
         if len(child1.instruction_sets) > max_program_length:
