@@ -89,10 +89,10 @@ class Program:
         return whole_thing
     
     def __str__(self) -> str:
-        return self.print()[0]
-    
+        return self.print()
+
     def __repr__(self) -> str:
-        return self.print()[0]
+        return self.print()
     
     def detect_intron(self):
         program_length = len(self.instruction_sets)
